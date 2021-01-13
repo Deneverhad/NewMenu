@@ -11,7 +11,7 @@ public class Logging extends JFrame {
 	JTextField login = new JTextField();
 	JPasswordField password = new JPasswordField();
 	
-	int ID=3;
+	int ID=2;
 	String userName,pass;
 	
 	public Logging(){
@@ -40,7 +40,7 @@ public class Logging extends JFrame {
 		//pass = password.getText();
 		//}
 		System.out.println(userName+" "+pass);
-		Guide.getInstance().login=userName;
+		Guide.getInstance().EmployID="USA";
 		Guide.getInstance().Id=this.ID;
 		Guide.getInstance().changeValuves(0,1);
 		Guide.getInstance().vision=true;

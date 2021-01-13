@@ -1,16 +1,13 @@
 package Menu.Delete;
 
 import Menu.Find.FindProduct;
-import Menu.Menu;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class DeleteProduct extends FindProduct {
-	DeleteProduct(){
+	public DeleteProduct(){
 		done();
 	}
 	void done()

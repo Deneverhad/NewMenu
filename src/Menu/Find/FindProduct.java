@@ -1,5 +1,7 @@
 package Menu.Find;
-import Menu.*;
+
+import Menu.Guide;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -50,7 +52,7 @@ public class FindProduct extends JPanel implements ActionListener {
 		setLayout(new BorderLayout());
 		add(panel, BorderLayout.SOUTH);
 		add(new JScrollPane(jTable), BorderLayout.CENTER);
-		setListener();
+		setListner();
 	}
 	
 	protected void setDiffrence(){
@@ -59,11 +61,7 @@ public class FindProduct extends JPanel implements ActionListener {
 		jTable.setDefaultEditor(Object.class, null);
 	}
 	
-	protected void setListener() {
-		setListner(jTextField, rowSorter);
-	}
-	
-	static void setListner(JTextField jTextField, TableRowSorter<TableModel> rowSorter) {
+	 void setListner() {
 		jTextField.getDocument().addDocumentListener(new DocumentListener(){
 			
 			@Override

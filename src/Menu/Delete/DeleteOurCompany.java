@@ -10,7 +10,7 @@ public class DeleteOurCompany extends FindOurCompany {
 	public DeleteOurCompany(){
 		done();
 	}
-	void done()
+	protected void done()
 	{
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent mouseEvent) {

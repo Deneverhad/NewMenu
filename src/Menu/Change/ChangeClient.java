@@ -1,15 +1,5 @@
 package Menu.Change;
 
-import Menu.Find.FindClient;
-import Menu.*;
-import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
 public class ChangeClient extends ChangeProduct {
 	
 	public ChangeClient() {

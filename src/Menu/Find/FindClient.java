@@ -1,14 +1,4 @@
 package Menu.Find;
-import Menu.*;
-import javax.swing.*;
-
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 public class FindClient extends FindProduct{
 	
@@ -27,9 +17,5 @@ public class FindClient extends FindProduct{
 				{"Norway", "Oslo", 4.5, true, "8%"},
 				{"India", "New Delhi", 1046, true, "8%"}
 		};
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-			Guide.getInstance().changeValuves(0,3);
 	}
 }

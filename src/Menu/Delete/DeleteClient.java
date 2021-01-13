@@ -2,9 +2,9 @@ package Menu.Delete;
 
 import Menu.Find.FindClient;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 
 public class DeleteClient extends FindClient {
 	public DeleteClient(){
@@ -16,8 +16,9 @@ public class DeleteClient extends FindClient {
 			public void mousePressed(MouseEvent mouseEvent) {
 				
 				if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
-					System.out.println(Arrays.toString(dataInside[jTable.getSelectedRow()]));
+					System.out.println(jTable.getSelectedRow());
 				}
+				if(SwingUtilities.isRightMouseButton(mouseEvent)) System.out.println("dziala");
 			}
 		});
 	}
