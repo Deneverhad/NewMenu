@@ -27,7 +27,7 @@ public class FindInvoice extends FindProduct {
 				{"India", "New Delhi", 1046, true, "8%"}
 		};
 	}
-	public void seter(){
+	protected void seter(){
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {

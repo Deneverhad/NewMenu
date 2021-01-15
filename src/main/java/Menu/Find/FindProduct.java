@@ -1,6 +1,7 @@
 package Menu.Find;
 
 import Menu.Guide;
+import Menu.SQLConnector;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -23,12 +24,14 @@ public class FindProduct extends JPanel implements ActionListener {
 	protected  TableRowSorter<TableModel> rowSorter;
 	protected  JTextField jTextField = new JTextField();
 	protected JButton Back = new JButton("Powrot");
+
 	
 	public FindProduct() {
 		finish();
 	}
 	
 	protected void paintComponent(Graphics g) {
+		System.out.println("Helper");
 		setData();
 		super.paintComponent(g);
 	}
@@ -94,23 +97,17 @@ public class FindProduct extends JPanel implements ActionListener {
 	}
 	protected void setData(){
 		
-		dataInside = new Object[][]{
-				{"USA", "Washington DC", 280, true, "8%"},
-				{"Canada", "Ottawa", 32, true, "8%"},
-				{"United Kingdom", "London", 60, true, "8%"},
-				{"Germany", "Berlin", 83, true, "8%"},
-				{"France", "Paris", 60, true, "8%"},
-				{"Norway", "Oslo", 4.5, true, "8%"},
-				{"India", "New Delhi", 1046, true, "8%"}
-		};
-		
-		//for(int i=0; i<porn.length;i++){
-			//for(int j=0;j<porn[0].length;j++){
-			//	defaultTableModel.setValueAt(porn[i][j],i,j);
-		//	}
-		//}
-		//defaultTableModel.setValueAt();
-		//this.dataInside=data;
+		if(dataInside == null){
+			dataInside=SQLConnector.getInstance().select("produkty");
+		}
+		else {
+			dataInside=SQLConnector.getInstance().select("produkty");
+			for (int i = 0; i < dataInside.length; i++) {
+					for (int j = 0; j<dataInside[0].length; j++) {
+						defaultTableModel.setValueAt(dataInside[i][j],i,j);
+				}
+			}
+		}
 	}
 	
 	@Override

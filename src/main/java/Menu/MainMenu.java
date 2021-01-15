@@ -49,7 +49,7 @@ public class MainMenu extends JPanel implements ActionListener {
 		 add.addActionListener(this);
 		 delete.setActionCommand(Actions.Delete.name());
 		 delete.addActionListener(this);
-		 backUp.setActionCommand(Actions.Delete.name());
+		 backUp.setActionCommand(Actions.Backup.name());
 		 backUp.addActionListener(this);
 		 logOut.setActionCommand(Actions.Logout.name());
 		 logOut.addActionListener(this);

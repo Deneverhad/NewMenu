@@ -32,7 +32,7 @@ public class Frame  {
 			TimeUnit.SECONDS.sleep(1);
 			if (Guide.getInstance().changer) {
 				clearFrame();
-			
+				System.out.println(Guide.getInstance().x +" "+ Guide.getInstance().y);
 				if(Guide.getInstance().x==0 && Guide.getInstance().y==0) {
 					frame.setVisible(false);
 					new Logging();
@@ -41,7 +41,6 @@ public class Frame  {
 				}
 				else if (Guide.getInstance().x==0 && Guide.getInstance().y==2){
 					new NewInvoice();
-					//Guide.getInstance().changer = false;
 				}
 				else {
 					Guide.getInstance().changer = false;
@@ -61,12 +60,11 @@ public class Frame  {
 		panels[3][5]= new ProductList();
 		
 		panels[0][1]= new MainMenu();
-		//panels[0][2]= new NewInvoice();
 		panels[0][3]= new FindMenu();
 		panels[0][4]= new AddMenu();
 		panels[0][5]= new DeleteMenu();
 		panels[0][6]= new ChangeMenu();
-		//panels[0][7]= new Backup();
+		panels[0][7]= new Backup();
 		
 		panels[2][0]= new InvoiceCompany();
 		panels[2][1]= new InvoiceClient();
@@ -90,16 +88,10 @@ public class Frame  {
 		panels[6][3]= new ChangeEmploy();
 		panels[6][4]= new ChangeOurCompany();
 		panels[6][5]= new ChangeProductList();
-		
-		
 	}
 	public void clearFrame() {
 		frame.getContentPane().removeAll();
 		frame.revalidate();
 		frame.repaint();
-	}
-	
-	public void visible(boolean type) {
-		frame.setVisible(type);
 	}
 }

@@ -1,7 +1,9 @@
 package Menu.Delete;
 
 import Menu.Find.ProductList;
+import Menu.Guide;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
@@ -11,11 +13,13 @@ public class DeleteProductList extends ProductList {
 	public DeleteProductList(){
 		done();
 	}
+	
 	@Override
 	protected void InvoiceSeter(String invoice){
 		this.Invoice = invoice;
 	}
-	void done()
+	
+	private void done()
 	{
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent mouseEvent) {
@@ -25,5 +29,9 @@ public class DeleteProductList extends ProductList {
 				}
 			}
 		});
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Guide.getInstance().changeValuves(0,5);
 	}
 }

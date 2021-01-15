@@ -63,6 +63,12 @@ public class AddEmploy extends JPanel implements ActionListener {
 		}
 		else{
 			Guide.getInstance().changeValuves(0,4);
+			LoginEmploy.setText("");
+			PasswordEmploy.setText("");
+			NameEmploy.setText("");
+			SurrnameEmploy.setText("");
+			PrivliageEmploy.setText("");
+			CompanyEmploy.setText("");
 		}
 	}
 }

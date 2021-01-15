@@ -54,6 +54,10 @@ public class AddCompany extends JPanel implements ActionListener {
 		}
 		else{
 			Guide.getInstance().changeValuves(0,4);
+			NameFirm.setText("");
+			AddressFirm.setText("");
+			NIPFirm.setText("");
+			PhoneFirm.setText("");
 		}
 	}
 }

@@ -45,7 +45,7 @@ public class Guide {
 		for (Object[] objects : OurFirm) {
 			for (int j = 0; j < OurFirm[0].length; j++) {
 				if (EmployID.equals(objects[j])) {
-					return "KAROL CZY ZROBILES JUZ HIBERNATA?";
+					return (String) OurFirm[0][j];
 				}
 			}
 		}

@@ -51,11 +51,15 @@ public class AddProduct extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getActionCommand().equals(Actions.Add.name())){
-			String data = Name.getText()+";"+PriceProduct.getText()+";"+UnitProduct.getText()+";"+TaxProduct.getText();
+			String data = NameProduct.getText()+";"+PriceProduct.getText()+";"+UnitProduct.getText()+";"+TaxProduct.getText();
 			System.out.println(data);
 		}
 		else{
 			Guide.getInstance().changeValuves(0,4);
+			NameProduct.setText("");
+			PriceProduct.setText("");
+			UnitProduct.setText("");
+			TaxProduct.setText("");
 		}
 	}
 }

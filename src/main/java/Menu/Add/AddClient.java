@@ -59,6 +59,11 @@ public class AddClient extends JPanel implements ActionListener {
 		}
 		else{
 			Guide.getInstance().changeValuves(0,4);
+			NameClient.setText("");
+			NIPClient.setText("");
+			AddressClient.setText("");
+			EmailClient.setText("");
+			PhoneClient.setText("");
 		}
 	}
 }
