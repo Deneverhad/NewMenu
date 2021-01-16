@@ -2,6 +2,7 @@ package Menu.Invoice;
 
 import Menu.Find.FindProduct;
 import Menu.Guide;
+import Menu.SQLConnector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 public class InvoiceProduct extends FindProduct {
 	
 	protected ArrayList<String> chosenProduct = new ArrayList<>();
-	private JLabel data = new JLabel("Ilosc: ");
-	private JTextField many = new JTextField();
+	private final JLabel data = new JLabel("Ilosc: ");
+	private final JTextField many = new JTextField();
 	private JPanel jPanel;
 	private JFrame jFrame;
 	public InvoiceProduct() {
@@ -36,10 +37,17 @@ public class InvoiceProduct extends FindProduct {
 				
 				if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
 					
-					JOptionPane.showMessageDialog(jFrame,jPanel,"Logowanie", JOptionPane.PLAIN_MESSAGE );
-					if(!(many.getText().isEmpty())){
-						chosenProduct.add((String) jTable.getValueAt(jTable.getSelectedRow(),0));
-						chosenProduct.add(many.getText());
+					JOptionPane.showMessageDialog(jFrame,jPanel,"Ilosc", JOptionPane.PLAIN_MESSAGE );
+					if(!(many.getText().isEmpty())) {
+						if(SQLConnector.getInstance().dodajListaProdukty(Integer.parseInt(dataInside[jTable.getSelectedRow()][0].toString()),Guide.getInstance().giveId(),Integer.parseInt(many.getText())) == 0){
+							System.out.println("ERROR");
+						}
+						else{
+							System.out.println("Udalo sie");
+						}
+					}
+					else{
+						System.out.println("EROOR");
 					}
 					//chosenProduct.add(Arrays.toString(dataInside[jTable.getSelectedRow()]));
 					//JOptionPane.showMessageDialog(jFrame,jPanel,"Logowanie", JOptionPane.PLAIN_MESSAGE );
@@ -47,9 +55,9 @@ public class InvoiceProduct extends FindProduct {
 					//Guide.getInstance().changeValuves(0,1); //next
 				}
 				if(SwingUtilities.isRightMouseButton(mouseEvent)) {
-					for(int i=0;i<chosenProduct.size();i++){
-						System.out.println(chosenProduct.get(i));
-					}
+					//for(int i=0;i<chosenProduct.size();i++){
+					//	System.out.println(chosenProduct.get(i));
+					//}
 					Guide.getInstance().changeValuves(0,1);
 				}
 			}

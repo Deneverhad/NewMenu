@@ -2,11 +2,12 @@ package Menu.Delete;
 
 import Menu.Find.FindOurCompany;
 import Menu.Guide;
+import Menu.SQLConnector;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 
 public class DeleteOurCompany extends FindOurCompany {
 	public DeleteOurCompany(){
@@ -18,7 +19,13 @@ public class DeleteOurCompany extends FindOurCompany {
 			public void mousePressed(MouseEvent mouseEvent) {
 				
 				if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
-					System.out.println(Arrays.toString(dataInside[jTable.getSelectedRow()]));
+					if(SQLConnector.getInstance().usunFirma(dataInside[jTable.getSelectedRow()][4].toString()) ==0) {
+						JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(jFrame, "Operacja powiodla sie");
+						Guide.getInstance().changeValuves(0,5);
+					}
 				}
 			}
 		});

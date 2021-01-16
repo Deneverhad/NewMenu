@@ -24,14 +24,15 @@ public class FindProduct extends JPanel implements ActionListener {
 	protected  TableRowSorter<TableModel> rowSorter;
 	protected  JTextField jTextField = new JTextField();
 	protected JButton Back = new JButton("Powrot");
-
+	protected JFrame jFrame = new JFrame();
+	
 	
 	public FindProduct() {
 		finish();
 	}
 	
 	protected void paintComponent(Graphics g) {
-		System.out.println("Helper");
+		setColumns();
 		setData();
 		super.paintComponent(g);
 	}
@@ -93,7 +94,7 @@ public class FindProduct extends JPanel implements ActionListener {
 	}
 	
 	protected void setColumns(){
-		this.columnNames= new String[]{"ProduktID", "NazwaProduktu", "Ilosc", "Jednostka", "Podatek"};
+		this.columnNames=SQLConnector.getInstance().selectColumns("produkty");
 	}
 	protected void setData(){
 		
@@ -102,10 +103,9 @@ public class FindProduct extends JPanel implements ActionListener {
 		}
 		else {
 			dataInside=SQLConnector.getInstance().select("produkty");
+			defaultTableModel.setRowCount(0);
 			for (int i = 0; i < dataInside.length; i++) {
-					for (int j = 0; j<dataInside[0].length; j++) {
-						defaultTableModel.setValueAt(dataInside[i][j],i,j);
-				}
+				defaultTableModel.addRow(dataInside[i]);
 			}
 		}
 	}

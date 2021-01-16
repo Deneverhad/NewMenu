@@ -1,26 +1,59 @@
 package Menu.Change;
 
+import Menu.Guide;
+import Menu.SQLConnector;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+
 public class ChangeEmploy extends ChangeProduct {
 	
 	public ChangeEmploy() {
-		finish();
 	}
 	
 	@Override
-	protected void setColumns() {
-		this.columnNames = new String[]{"Produkt", "Nazwa", "Il", "Jedn", "Po"};
+	protected void setColumns(){
+		this.columnNames= SQLConnector.getInstance().selectColumns("pracownicy");
 	}
 	
 	@Override
 	protected void setData() {
-		dataInside = new Object[][]{
-				{"USA", "Waon DC", 280, true, "8%"},
-				{"Canada", "Otwa", 32, true, "8%"},
-				{"United Kingdm", "London", 60, true, "8%"},
-				{"Germany", "Be", 83, true, "8%"},
-				{"France", "Par", true, "8"},
-				{"Norway", "Oso", 4.5, true, "8%"},
-				{"India", "New Dhi", 1046, true, "8%"}
-		};
+		if (dataInside == null) {
+			dataInside = SQLConnector.getInstance().select("pracownicy");
+		} else {
+			dataInside = SQLConnector.getInstance().select("pracownicy");
+			for (int i = 0; i < dataInside.length; i++) {
+				for (int j = 0; j < dataInside[0].length; j++) {
+					defaultTableModel.setValueAt(dataInside[i][j], i, j);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals(Actions.Change.name())) {
+			String[] data;
+			for (int i = 0; i < X.size(); i++) {
+				data=X.get(i);
+				try {
+					
+					if (SQLConnector.getInstance().poprawPracownik(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4], Integer.parseInt(data[5])) == 0) {
+						JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(jFrame, "Operacja powiodla sie");
+					}
+				}
+				catch (Exception enn){
+					JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			X.clear();
+			Guide.getInstance().changeValuves(0,1);
+		}
+		else{
+			X.clear();
+			Guide.getInstance().changeValuves(0,6);
+		}
 	}
 }

@@ -17,13 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class Frame  {
 	
 	private final JFrame frame = new JFrame();
-	private final JPanel[][] panels = new JPanel[17][13];
+	private final JPanel[][] panels = new JPanel[7][8];
+	private int [] sizesX = new int[8];
+	private int [] sizesY = new int[9];
 
 	public Frame() throws InterruptedException {
 		addMenu();
-		
+		frame.setSize(500,500);
 		frame.setVisible(true);
-		frame.setSize(600,700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		start();
 	}
@@ -32,7 +33,6 @@ public class Frame  {
 			TimeUnit.SECONDS.sleep(1);
 			if (Guide.getInstance().changer) {
 				clearFrame();
-				System.out.println(Guide.getInstance().x +" "+ Guide.getInstance().y);
 				if(Guide.getInstance().x==0 && Guide.getInstance().y==0) {
 					frame.setVisible(false);
 					new Logging();
@@ -43,6 +43,7 @@ public class Frame  {
 					new NewInvoice();
 				}
 				else {
+					frame.setSize(sizesX[Guide.getInstance().x],sizesY[Guide.getInstance().x]);
 					Guide.getInstance().changer = false;
 					frame.add(panels[Guide.getInstance().x][Guide.getInstance().y]);
 				}
@@ -51,6 +52,9 @@ public class Frame  {
 		}
 	}
 	private void addMenu()  {
+		
+		sizesX= new int[]{500, 500, 500, 700, 700, 700,700};
+		sizesY= new int[]{500, 500, 500, 800, 300, 800,800};
 		
 		panels[3][0]= new FindInvoice();
 		panels[3][1]= new FindProduct();

@@ -10,12 +10,9 @@ public class Logging extends JFrame {
 	JLabel labelPassword = new JLabel("Haslo: ");
 	JTextField login = new JTextField();
 	JPasswordField password = new JPasswordField();
-	
-	int ID=3;
 	String userName,pass;
 	
 	public Logging(){
-		
 		jPanel.add(labelLogin);
 		jPanel.add(login);
 		jPanel.add(labelPassword);
@@ -32,16 +29,23 @@ public class Logging extends JFrame {
 	private void Checklogin(){
 		userName = login.getText();
 		pass = String.valueOf(password.getPassword());
-		//ask data base
-		//WHILE (METODA DO BAZY DANCYH  == false ( W SENSIE dobre dane)
-		// {
-		//JOptionPane.showMessageDialog(this, jPanel, "Logowanie", JOptionPane.PLAIN_MESSAGE );
-		//userName = login.getText();
-		//pass = password.getText();
-		//}
-		System.out.println(userName+" "+pass);
-		Guide.getInstance().EmployID="USA";
-		Guide.getInstance().Id=this.ID;
+	
+		String[] userinfo = SQLConnector.getInstance().logowanie(userName,pass).split("\\|");
+	
+		int data = Integer.parseInt(userinfo[0]);
+		
+		if(data==-1){
+			do{
+			JOptionPane.showMessageDialog(this, jPanel, "Logowanie", JOptionPane.PLAIN_MESSAGE );
+			userName = login.getText();
+			pass = password.getText();
+			userinfo = SQLConnector.getInstance().logowanie(userName,pass).split("\\|");
+			data = Integer.parseInt(userinfo[0]);
+			}while (data==-1);
+		}
+		System.out.println("Login: " +userName+" "+pass);
+		Guide.getInstance().EmployID=userinfo[1];
+		Guide.getInstance().Id=Integer.parseInt(userinfo[0]);
 		Guide.getInstance().changeValuves(0,1);
 		Guide.getInstance().vision=true;
 	}

@@ -1,6 +1,7 @@
 package Menu.Add;
 
 import Menu.Guide;
+import Menu.SQLConnector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,14 +13,14 @@ public class AddProduct extends JPanel implements ActionListener {
 	private enum Actions{
 		Add, Back
 	}
-	
+	protected JFrame jFrame = new JFrame();
 	JButton Add = new JButton("Dodaj");
 	JButton Back = new JButton("Powrot");
 	
 	JLabel Name = new JLabel("Podaj nazwe produktu:");
 	JLabel Price = new JLabel("Podaj cene produktu:");
 	JLabel Unit = new JLabel("Podaj jednostke produktu:");
-	JLabel Tax = new JLabel("Podaj nazwe produktu:");
+	JLabel Tax = new JLabel("Podaj podatek:");
 	
 	JTextField  NameProduct  = new JTextField();
 	JTextField PriceProduct  = new JTextField();
@@ -28,7 +29,6 @@ public class AddProduct extends JPanel implements ActionListener {
 	
 	public AddProduct(){
 		setLayout(new GridLayout(5,2));
-		
 		
 		add(Name,BorderLayout.WEST);
 		add(NameProduct,BorderLayout.EAST);
@@ -51,8 +51,24 @@ public class AddProduct extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getActionCommand().equals(Actions.Add.name())){
-			String data = NameProduct.getText()+";"+PriceProduct.getText()+";"+UnitProduct.getText()+";"+TaxProduct.getText();
-			System.out.println(data);
+			try {
+				if (!(NameProduct.getText().isEmpty() || PriceProduct.getText().isEmpty() || UnitProduct.getText().isEmpty() || TaxProduct.getText().isEmpty())) {
+					if (SQLConnector.getInstance().dodajProdukt(NameProduct.getText(), Double.parseDouble(PriceProduct.getText()), UnitProduct.getText(), Double.parseDouble(TaxProduct.getText())) == 0) {
+						JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(jFrame, "Operacja powiodla sie");
+						Guide.getInstance().changeValuves(0, 4);
+						NameProduct.setText("");
+						PriceProduct.setText("");
+						UnitProduct.setText("");
+						TaxProduct.setText("");
+					}
+				} else {
+					JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+				}
+			}catch (Exception en){
+				JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else{
 			Guide.getInstance().changeValuves(0,4);

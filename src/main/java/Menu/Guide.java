@@ -8,8 +8,9 @@ public class Guide {
 	public Object[][] OurFirm;
 	public boolean vision=false;
 	public  String EmployID;
+	public int invoiceID=-1;
 	private static Guide guide;
-	
+	public String invoice="";
 	private Guide(){
 		init();
 	}
@@ -37,19 +38,33 @@ public class Guide {
 	protected int getID(){
 		return Id;
 	}
+	
 	public void setFirm(Object[][] firm){
 		this.OurFirm=firm;
 	}
 	
 	public String employFirm(){
-		for (Object[] objects : OurFirm) {
+		for (Object[] objects : OurFirm)
 			for (int j = 0; j < OurFirm[0].length; j++) {
-				if (EmployID.equals(objects[j])) {
-					return (String) OurFirm[0][j];
+				if ((EmployID.equals(objects[j].toString()))) {
+					return objects[0].toString();
 				}
 			}
-		}
 		return null;
 	}
 	
+	public void preapreInvoice(String invoice){
+		this.invoice=this.invoice+invoice;
+	}
+	public String retrunInvoice(){
+		return this.invoice;
+	}
+	
+	public void setId(int id){
+		this.invoiceID=id;
+	}
+	
+	public int giveId(){
+		return this.invoiceID;
+	}
 }

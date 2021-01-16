@@ -1,24 +1,27 @@
 package Menu.Find;
 
 import Menu.Guide;
+import Menu.SQLConnector;
 
 public class FindOurCompany extends FindProduct {
 	
 	@Override
 	protected void setColumns(){
-		this.columnNames= new String[]{"ProduktID", "NazwaProduktu", "Ilosc", "Jednostka", "Podatek"};
+		this.columnNames= SQLConnector.getInstance().selectColumns("firma");
 	}
+	
 	@Override
-	protected void setData(){
-		dataInside = new Object[][]{
-				{"USA", "Washington DC", 280, true, "8%"},
-				{"Canada", "Ottawa", 32, true, "8%"},
-				{"United Kingdom", "London", 60, true, "8%"},
-				{"Germany", "Berlin", 83, true, "8%"},
-				{"France", "Paris", 60, true, "8%"},
-				{"Norway", "Oslo", 4.5, true, "8%"},
-				{"India", "New Delhi", 1046, true, "8%"}
-		};
-		Guide.getInstance().setFirm(dataInside);
+	protected void setData() {
+		if (dataInside == null) {
+			dataInside = SQLConnector.getInstance().select("firma");
+			Guide.getInstance().setFirm(dataInside);
+		} else {
+			dataInside = SQLConnector.getInstance().select("firma");
+			Guide.getInstance().setFirm(dataInside);
+			defaultTableModel.setRowCount(0);
+			for (int i = 0; i < dataInside.length; i++) {
+				defaultTableModel.addRow(dataInside[i]);
+			}
+		}
 	}
 }

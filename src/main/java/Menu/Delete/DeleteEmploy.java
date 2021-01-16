@@ -2,11 +2,13 @@ package Menu.Delete;
 
 import Menu.Find.FindEmploy;
 import Menu.Guide;
+import Menu.SQLConnector;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
+
 
 public class DeleteEmploy extends FindEmploy {
 	public DeleteEmploy(){
@@ -17,7 +19,13 @@ public class DeleteEmploy extends FindEmploy {
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent mouseEvent) {
 				if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
-					System.out.println(Arrays.toString(dataInside[jTable.getSelectedRow()]));
+					if(SQLConnector.getInstance().usunPracownik(Integer.parseInt(dataInside[jTable.getSelectedRow()][0].toString())) ==0){
+						JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(jFrame, "Operacja powiodla sie");
+						Guide.getInstance().changeValuves(0,5);
+					}
 				}
 			}
 		});

@@ -1,31 +1,33 @@
 package Menu.Find;
 
 import Menu.Guide;
+import Menu.SQLConnector;
 
 import java.awt.event.ActionEvent;
 
 public class ProductList extends FindProduct{
-	private String Invoice;
+
 	public ProductList(){
 	}
 	
-	protected void InvoiceSeter(String invoice){
-		this.Invoice = invoice;
-	}
 	@Override
 	protected void setColumns(){
-		//Przeslij id faktury
-		this.columnNames= new String[]{"ProduktID", "NazwaProduktu", "Ilosc", "Jednostka", "Podatek"};
+		this.columnNames= SQLConnector.getInstance().selectColumns("produktynafakturze");
 	}
+	
 	@Override
-	protected void setData(){
-		this.dataInside = new Object[][]{
-				{"USA", "Washington DC", 280, true, "8%"},
-				{"Canada", "Ottawa", 32, true, "8%"},
-				{"United Kingdom", "London", 60, true, "8%"},
-				{"Germany", "Berlin", 83, true, "8%"},
-		};
+	protected void setData() {
+		if (dataInside == null) {
+			dataInside = SQLConnector.getInstance().select("produktynafakturze");
+		} else {
+			dataInside = SQLConnector.getInstance().select("produktynafakturze");
+			defaultTableModel.setRowCount(0);
+			for (int i = 0; i < dataInside.length; i++) {
+				defaultTableModel.addRow(dataInside[i]);
+			}
+		}
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Guide.getInstance().changeValuves(3,0);

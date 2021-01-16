@@ -2,11 +2,12 @@ package Menu.Delete;
 
 import Menu.Find.FindClient;
 import Menu.Guide;
+import Menu.SQLConnector;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 
 public class DeleteClient extends FindClient {
 	public DeleteClient(){
@@ -18,9 +19,15 @@ public class DeleteClient extends FindClient {
 			public void mousePressed(MouseEvent mouseEvent) {
 				
 				if (mouseEvent.getClickCount() == 2 && jTable.getSelectedRow() != -1) {
-					System.out.println(Arrays.toString(dataInside[jTable.getSelectedRow()]));
+					if(SQLConnector.getInstance().usunKlient(Integer.parseInt(dataInside[jTable.getSelectedRow()][0].toString())) ==0){
+						JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(jFrame, "Operacja powiodla sie");
+						Guide.getInstance().changeValuves(0,5);
+					}
 				}
-				//if(SwingUtilities.isRightMouseButton(mouseEvent)) System.out.println("dziala");
+				
 			}
 		});
 	}

@@ -1,6 +1,7 @@
 package Menu.Add;
 
 import Menu.Guide;
+import Menu.SQLConnector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class AddEmploy extends JPanel implements ActionListener {
 	private enum Actions{
 		Add, Back
 	}
-
+	protected JFrame jFrame = new JFrame();
 	JButton Add = new JButton("Dodaj");
 	JButton Back = new JButton("Powrot");
 	
@@ -21,7 +22,7 @@ public class AddEmploy extends JPanel implements ActionListener {
 	JLabel Name = new JLabel("Imie: ");
 	JLabel Surrname = new JLabel("Nazwisko: ");
 	JLabel Privliage = new JLabel("Uprawnienia: ");
-	JLabel Company = new JLabel("NIPFirmy: ");
+	
 	
 	
 	JTextField LoginEmploy = new JTextField();
@@ -29,10 +30,10 @@ public class AddEmploy extends JPanel implements ActionListener {
 	JTextField NameEmploy = new JTextField();
 	JTextField SurrnameEmploy = new JTextField();
 	JTextField PrivliageEmploy = new JTextField();
-	JTextField CompanyEmploy = new JTextField();
+
 	
 	public AddEmploy(){
-		setLayout(new GridLayout(7,2));
+		setLayout(new GridLayout(6,2));
 		add(Login,BorderLayout.WEST);
 		add(LoginEmploy,BorderLayout.EAST);
 		add(Password,BorderLayout.WEST);
@@ -43,8 +44,6 @@ public class AddEmploy extends JPanel implements ActionListener {
 		add(SurrnameEmploy,BorderLayout.EAST);
 		add(Privliage,BorderLayout.WEST);
 		add(PrivliageEmploy,BorderLayout.EAST);
-		add(Company,BorderLayout.EAST);
-		add(CompanyEmploy,BorderLayout.EAST);
 		add(Back,BorderLayout.EAST);
 		add(Add,BorderLayout.WEST);
 		
@@ -58,8 +57,26 @@ public class AddEmploy extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getActionCommand().equals(Actions.Add.name())){
-		String data = LoginEmploy.getText()+";"+PasswordEmploy.getText()+";"+NameEmploy.getText()+";"+SurrnameEmploy.getText()+";"+PrivliageEmploy.getText()+";"+CompanyEmploy.getText();
-			System.out.println(data);
+			try {
+				if (!(LoginEmploy.getText().isEmpty() || PasswordEmploy.getText().isEmpty() || NameEmploy.getText().isEmpty() || SurrnameEmploy.getText().isEmpty() || PrivliageEmploy.getText().isEmpty())) {
+					if (SQLConnector.getInstance().dodajPracownik(LoginEmploy.getText(), PasswordEmploy.getText(), NameEmploy.getText(), SurrnameEmploy.getText(), Integer.parseInt(PrivliageEmploy.getText())) == 0) {
+						JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(jFrame, "Operacja powiodla sie");
+						Guide.getInstance().changeValuves(0, 4);
+						LoginEmploy.setText("");
+						PasswordEmploy.setText("");
+						NameEmploy.setText("");
+						SurrnameEmploy.setText("");
+						PrivliageEmploy.setText("");
+					}
+				} else {
+					JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			catch (Exception en){
+				JOptionPane.showMessageDialog(jFrame, "Operacja nie powiodla sie", "Ostrzezenie", JOptionPane.ERROR_MESSAGE);
+		}
 		}
 		else{
 			Guide.getInstance().changeValuves(0,4);
@@ -68,7 +85,6 @@ public class AddEmploy extends JPanel implements ActionListener {
 			NameEmploy.setText("");
 			SurrnameEmploy.setText("");
 			PrivliageEmploy.setText("");
-			CompanyEmploy.setText("");
 		}
 	}
 }
